@@ -11,9 +11,10 @@ declare(strict_types=1);
 namespace App\Validation\Provider;
 
 use App\Validation\Rule\ValidationRuleInterface;
+use App\Validation\Provider\RuleProviderInterface;
 use InvalidArgumentException;
 
-final class TenantRuleProvider
+final class TenantRuleProvider implements RuleProviderInterface
 {
     /**
      * @var array<int, ValidationRuleInterface[]>

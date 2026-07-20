@@ -11,20 +11,20 @@ declare(strict_types=1);
 namespace App\Validator;
 
 use App\Model\Document;
-use App\Validation\Provider\TenantRuleProvider;
+use App\Validation\Provider\RuleProviderInterface;
 use App\Validation\Result\ValidationResult;
 
 final class DocumentValidator
 {
     /**
-     * @var TenantRuleProvider
+     * @var RuleProviderInterface
      */
-    protected readonly TenantRuleProvider $_ruleProvider;
+    protected readonly RuleProviderInterface $_ruleProvider;
 
     /**
-     * @param TenantRuleProvider $ruleProvider
+     * @param RuleProviderInterface $ruleProvider
      */
-    public function __construct(TenantRuleProvider $ruleProvider)
+    public function __construct(RuleProviderInterface $ruleProvider)
     {
         $this->_ruleProvider = $ruleProvider;
     }
