@@ -10,6 +10,8 @@ declare(strict_types=1);
 
 namespace App\Model;
 
+use App\Config\EncodingConfig;
+
 final class Document
 {
     /**
@@ -33,10 +35,18 @@ final class Document
     protected array $_metadata = [];
 
     /**
-     * Encoding used for multibyte string operations.
+     * @var EncodingConfig
      */
-    private const CONTENT_ENCODING = 'UTF-8';
+    protected readonly EncodingConfig $_encodingConfig;
 
+    /**
+     * @param EncodingConfig $encodingConfig
+     */
+    public function __construct(EncodingConfig $encodingConfig)
+    {
+        $this->_encodingConfig = $encodingConfig;
+    }
+    
     /**
      * @return int
      */
@@ -148,6 +158,6 @@ final class Document
      */
     public function getContentSize(): int
     {
-        return mb_strlen($this->_content, self::CONTENT_ENCODING);
+        return mb_strlen($this->_content, $this->_encodingConfig->getEncoding());
     }
 }
