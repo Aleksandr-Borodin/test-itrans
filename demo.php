@@ -1,4 +1,10 @@
 <?php
+/**
+ * demo.php
+ * Created: 20.07.2026
+ * Author: Alex
+ * Project: test-itrans
+ */
 
 declare(strict_types=1);
 if (!in_array(PHP_SAPI, ['cli', 'cli-server', 'phpdbg'])) {
@@ -77,6 +83,7 @@ function tenantsMain(array $tenantsConfig, DocumentValidator $validator, Encodin
 
 /**
  * Input data for test;
+ * Supported rules: MaxDocumentSizeRule, ProhibitedWordsRule, RequiredMetadataFieldsRule
  * @param EncodingConfig $encodingConfig
  * @return array
  */
@@ -200,7 +207,6 @@ function printResult(ValidationResult $result, Document $document): void
             "Status: VALID",
             consoleGreenColor()
         ) . PHP_EOL . PHP_EOL;
-
         return;
     }
     echo colorText(
