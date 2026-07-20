@@ -1,0 +1,50 @@
+<?php
+/**
+ * DocumentValidator.php
+ * Created: 20.07.2026
+ * Author: Alex
+ * Project: test-itrans
+ */
+
+declare(strict_types=1);
+
+namespace App\Validator;
+
+use App\Model\Document;
+use App\Validation\Provider\TenantRuleProvider;
+use App\Validation\Result\ValidationResult;
+
+final class DocumentValidator
+{
+    /**
+     * @var TenantRuleProvider
+     */
+    protected readonly TenantRuleProvider $_ruleProvider;
+
+    /**
+     * @param TenantRuleProvider $ruleProvider
+     */
+    public function __construct(TenantRuleProvider $ruleProvider)
+    {
+        $this->_ruleProvider = $ruleProvider;
+    }
+
+    /**
+     * @param Document $document
+     * @return ValidationResult
+     */
+    public function validate(Document $document): ValidationResult
+    {
+        $errors = [];
+        $rules = $this->_ruleProvider->getRules(
+            $document->getTenantId()
+        );
+        foreach ($rules as $rule) {
+            $errors = array_merge(
+                $errors,
+                $rule->validate($document)
+            );
+        }
+        return new ValidationResult($errors);
+    }
+}
